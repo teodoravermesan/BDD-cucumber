@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import util.Log;
 
 public class BaseActionPage {
 	protected WebDriver driver;
@@ -25,7 +26,7 @@ public class BaseActionPage {
 		return driver.findElement(By.cssSelector(cssLocator)).getText();
 	}
 
-	protected void loadUrl(String url) {
+	public void loadUrl(String url) {
 		Log.logStart("Loagin Url");
 		driver.get(url);
 		Log.logEnd("Url loaded");
@@ -34,7 +35,7 @@ public class BaseActionPage {
 	protected boolean isElementDisplayed(String cssLocator) {
 		return driver.findElement(By.cssSelector(cssLocator)).isDisplayed();
 	}
-	
+
 	protected String getUrl() {
 		return driver.getCurrentUrl();
 	}

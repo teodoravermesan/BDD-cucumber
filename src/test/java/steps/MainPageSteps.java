@@ -10,7 +10,7 @@ import util.Data;
 import org.junit.Assert;
 
 public class MainPageSteps extends BaseTest {
-	private final MainPage mainPageView = new MainPage(driver);
+	private final MainPage mainPageView = new MainPage(wbdriver.get());
 
 	@Given("I am on homepage")
 	public void iCheckHomepage() {
@@ -25,5 +25,10 @@ public class MainPageSteps extends BaseTest {
 	@Then("Header name is {string}")
 	public void checkUsername(String name) {
 		Assert.assertEquals(name, mainPageView.getUsernameText());
+	}
+
+	@Given("I load google page")
+	public void iCheckHomeddpage() {
+		mainPageView.loadUrl("http://google.com");
 	}
 }

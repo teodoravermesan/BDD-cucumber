@@ -10,8 +10,8 @@ import pages.MainPage;
 import pages.ResultPage;
 
 public class SearchSteps extends BaseTest {
-	private final MainPage mainPageView = new MainPage(driver);
-	private final ResultPage resultPage = new ResultPage(driver);
+	private final MainPage mainPageView = new MainPage(wbdriver.get());
+	private final ResultPage resultPage = new ResultPage(wbdriver.get());
 
 	@Test
 	@When("Search {string} in search text box")
@@ -19,6 +19,7 @@ public class SearchSteps extends BaseTest {
 		mainPageView.typeKeyword(word);
 		mainPageView.clickOnSearchButton();
 	}
+
 	@Test
 	@Then("{string} page is displayed")
 	public void testResultsDisplayed(String word) {

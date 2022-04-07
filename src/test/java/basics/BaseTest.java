@@ -13,7 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class BaseTest {
-	public static WebDriver driver;
+	public static ThreadLocal<WebDriver> wbdriver = new ThreadLocal<WebDriver>();
 	public Properties configProp;
 
 	public void setUp() {
@@ -27,26 +27,26 @@ public class BaseTest {
 			Log.info("Opening a browser");
 			if (browser.equalsIgnoreCase("chrome")) {
 				WebDriverManager.chromedriver().setup();
-				driver = new ChromeDriver();
+				wbdriver.set(new ChromeDriver());
 			} else if (browser.equalsIgnoreCase("firefox")) {
 				WebDriverManager.firefoxdriver().setup();
-				driver = new FirefoxDriver();
+				wbdriver.set(new FirefoxDriver());
 			}
 			Log.info("New browser opened");
-			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			wbdriver.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			Log.info("Implicit wait applied on the driver for 10 seconds");
-			driver.manage().deleteAllCookies();
+			wbdriver.get().manage().deleteAllCookies();
 			Log.info("Browser window is maximized");
-			driver.manage().window().maximize();
-			driver.get(configProp.getProperty("url"));
+			wbdriver.get().manage().window().maximize();
+			wbdriver.get().get(configProp.getProperty("url"));
 		} catch (IOException ex) {
 
 		}
 	}
 
 	public void tearDown() {
-		driver.quit();
-		driver = null;
+		wbdriver.get().quit();
+		// driver = null;
 	}
 
 }

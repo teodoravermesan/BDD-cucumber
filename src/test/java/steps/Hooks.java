@@ -22,13 +22,18 @@ public class Hooks {
 		baseTest.setUp();
 	}
 
+	@Before
+	public void step(Scenario scenario) {
+		System.out.println("Current Thread ID: " + Thread.currentThread().getId() + "<->" + "Scenario:" + scenario.getName());
+	}
+
 	@After
 	public void endTest(Scenario scenario) {
 		if (scenario.isFailed()) {
 
 			try {
 				Log.info(scenario.getName() + " is Failed");
-				final byte[] screenshot = ((TakesScreenshot) BaseTest.driver).getScreenshotAs(OutputType.BYTES);
+				final byte[] screenshot = ((TakesScreenshot) BaseTest.wbdriver.get()).getScreenshotAs(OutputType.BYTES);
 				scenario.attach(screenshot, "image/png", "failed");
 			} catch (WebDriverException e) {
 				e.printStackTrace();

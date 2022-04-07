@@ -10,12 +10,12 @@ import pages.MainPage;
 import org.junit.Assert;
 
 public class LogoutSteps extends BaseTest {
-	private final MainPage mainPageView = new MainPage(driver);
+	private final MainPage mainPageView = new MainPage(wbdriver.get());
 
 	@Then("I logout")
 	public void logout() {
-		driver.manage().deleteAllCookies();
-		driver.navigate().refresh();
+		wbdriver.get().manage().deleteAllCookies();
+		wbdriver.get().navigate().refresh();
 	}
 
 	@Then("Sign in button is displayed")
